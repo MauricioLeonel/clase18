@@ -1,0 +1,95 @@
+ una vez levantado mongod simplemente hacer
+ 
+ use ecommerce
+//NO ENTENDI EL PUNTO 2
+ db.chats.insertMany([{
+    email:'mauricio@emial.com',
+    mensaje:'hola',
+    fecha:Date.now()
+ },
+ {
+    email:'mauricio@emial.com',
+    mensaje:'como estas?',
+    fecha:Date.now()
+ },
+ {
+    email:'mauricio@emial.com',
+    mensaje:'todo bien por suerte',
+    fecha:Date.now()
+ },
+ {
+    email:'mauricio@emial.com',
+    mensaje:'aca andamos',
+    fecha:Date.now()
+ },
+ {
+    email:'mauricio@emial.com',
+    mensaje:'joya',
+    fecha:Date.now()
+ }
+ ]) 
+ db.productos.insertMany([{
+    title:'calculadora',
+    price:300,
+    thumbnail:'www.google.com'
+ },
+ {
+    title:'neutron',
+    price:400,
+    thumbnail:'www.google.com'
+ },
+ {
+    title:'escuadra',
+    price:10,
+    thumbnail:'www.google.com'
+ },
+ {
+    title:'pombero',
+    price:99999,
+    thumbnail:'www.google.com'
+ },
+ {
+    title:'oculus',
+    price:50000,
+    thumbnail:'www.google.com'
+ }
+ ])
+
+ db.chat.find()
+ db.producto.find()
+ db.chat.find().count()
+ db.producto.find().count()
+
+// CREAR UN USUARIO 
+1 - instanciar mongod con --dbpath
+    1 - use ecommerce
+    2 - db.createUser({
+         user: 'pepe',
+         pwd: 'asd456', 
+         roles: [ 
+            {
+                role:'read',
+                db:'ecommerce'
+            }
+         ]
+    })
+2 - instanciar de nuevo mongod con --dbpath y con --auth
+    logearse con compass o robo3t, en mi caso lo hice en robo3t o la shell
+    mongo --port 27017 --authenticationDatabase "ecommerce" -u "pepe" -p asd456
+    quise hacer un insertOne y sale el error 
+    Error:
+    Not authorized on ecommerce to execute command { insert: "productos", ordered: true, $db: "ecommerce" 
+
+    por la consola sale
+    uncaught exception: WriteCommandError({
+            "ok" : 0,
+            "errmsg" : "not authorized on ecommerce to execute command { insert: \"productos\", ordered: true, lsid: { id: UUID(\"1d8868e4-8097-4e37-9a6d-73239fb39678\") }, $db: \"ecommerce\" }",
+            "code" : 13,
+            "codeName" : "Unauthorized"
+    }) :
+    WriteCommandError({
+            "ok" : 0,
+            "errmsg" : "not authorized on ecommerce to execute command { insert: \"productos\", ordered: true, lsid: { id: UUID(\"1d8868e4-8097-4e37-9a6d-73239fb39678\") }, $db: \"ecommerce\" }",
+            "code" : 13,
+            "codeName" : "Unauthorized"
+    })
